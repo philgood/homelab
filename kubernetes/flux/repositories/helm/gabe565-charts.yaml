@@ -2,8 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: stakater
+  name: gabe565-charts
   namespace: flux-system
 spec:
-  interval: 1h
-  url: https://stakater.github.io/stakater-charts
+  interval: 30m
+  url: https://charts.gabe565.com
+  timeout: 3m
