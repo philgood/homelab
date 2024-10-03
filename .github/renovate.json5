@@ -38,7 +38,7 @@
   "commitMessageSuffix": "",
   // package rules
   "packageRules": [
-     automerge
+    // automerge
     {
       "description": ["Auto merge Github Actions"],
       "matchManagers": ["github-actions"],
