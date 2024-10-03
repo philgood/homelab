@@ -1,9 +1,9 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: home-assistant
+  name: &app home-assistant
 spec:
   interval: 30m
   chart:
@@ -22,6 +22,11 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
+  dependsOn:
+    - name: longhorn
+      namespace: storage
+    - name: volsync
+      namespace: storage
   values:
     controllers:
       home-assistant:
@@ -30,45 +35,35 @@ spec:
         containers:
           app:
             image:
-              repository: ghcr.io/onedr0p/home-assistant
-              tag: 2024.10.0
+              repository: ghcr.io/joryirving/home-assistant
+              tag: 2024.10.0@sha256:89db9eceff0c96b0521aeeaee732731004dcb00a381fc79435c2b4b4915fec0a
             env:
               TZ: ${TIMEZONE}
-            envFrom:
-              - secretRef:
-                  name: home-assistant-secret
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
             resources:
               requests:
-                cpu: 41m
-                memory: 1Gi
+                cpu: 50m
+                memory: 400Mi
               limits:
-                memory: 1Gi
+                memory: 700Mi
           codeserver:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.91.1@sha256:8403442d3472e411f72b6a5267b5ee0e62db27e258d81efebef40c3b41219970
+              tag: 4.93.1
+            env:
+              TZ: ${TIMEZONE}
             args:
+              - "/config"
               - --auth
               - "none"
               - --user-data-dir
               - "/config/.vscode"
               - --extensions-dir
               - "/config/.vscode"
-              - "--port"
-              - "12321"
-              - /config
-            resources:
-              requests:
-                cpu: 41m
-                memory: 593Mi
-              limits:
-                memory: 1Gi
 
     defaultPodOptions:
       hostNetwork: true
@@ -83,6 +78,7 @@ spec:
     service:
       app:
         controller: home-assistant
+        nameOverride: home-assistant
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: 172.20.24.100
