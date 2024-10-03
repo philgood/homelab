@@ -1,28 +1,5 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: &app external-secrets-certificates
-  namespace: flux-system
-spec:
-  targetNamespace: external-secrets
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/external-secrets/external-secrets/certs
-  prune: true
-  sourceRef:
-    kind: GitRepository
-    name: home-kubernetes
-  wait: true
-  dependsOn:
-    - name: cert-manager-issuers
-  interval: 120m
-  retryInterval: 1m
-  timeout: 5m
----
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -33,8 +10,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  dependsOn:
-    - name: external-secrets-certificates
   path: ./kubernetes/apps/external-secrets/external-secrets/app
   prune: true
   sourceRef:
@@ -45,7 +20,7 @@ spec:
   retryInterval: 1m
   timeout: 5m
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/kustomization-kustomize-v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
@@ -58,6 +33,7 @@ spec:
       app.kubernetes.io/name: *app
   dependsOn:
     - name: external-secrets
+    - name: bitwarden-secrets-manager
   path: ./kubernetes/apps/external-secrets/external-secrets/stores
   prune: true
   sourceRef:
