@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mosquitto-configmap
+  name: mosquitto-config
 spec:
   accessModes:
     - ReadWriteOnce
