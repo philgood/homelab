@@ -88,7 +88,7 @@ spec:
     service:
       app:
         controller: home-assistant
-        type: main
+        type: LoadBalancer
         nameOverride: home-assistant
         annotations:
           lbipam.cilium.io/ips: 172.20.24.100
