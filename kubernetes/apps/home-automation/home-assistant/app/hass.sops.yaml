@@ -1,0 +1,31 @@
+# yamllint disable
+apiVersion: v1
+kind: Secret
+metadata:
+    name: home-assistant-secret
+    namespace: home
+type: Opaque
+stringData:
+    HASS_MQTT_PASSWORD: ENC[AES256_GCM,data:wsj0aO7ZkO04GwzSGIk=,iv:7P8sGZ5ppYf+G3Uz2CAVL7IMQfNr4qvf/wrG7UzzUh4=,tag:4fP+eLcTyz6fNEEd58VePA==,type:str]
+    HASS_MQTT_USERNAME: ENC[AES256_GCM,data:BrY3ztvTpz9j,iv:udFtCHbqWrp/iBISdiwnHKO/M15XJ74HKDVKWDYdRrU=,tag:3vpNW6Lmhosp6XkDOIpJoA==,type:str]
+    HASS_BEARER_TOKEN: ENC[AES256_GCM,data:oiX7v5T3gHCHiW/0ZXI=,iv:u3/YG1RUioj0TFpy3uw5djWlxMzYleLo5LUzrAu502s=,tag:rEAhGpsHWCnGA0cSDf2h9Q==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age1964rmmj694glm395fgnu2ek4l256futzshj7xma6fm3cphdxeu4s2z6jv7
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAxR1dLcVZBRkV4Sk5aNmhN
+            SythajVkbE8wYWkweFZBNjRjMktNeXkzRkJBClRFdnNCVjdQR0kzcmM2VTU4ZTll
+            bVRsTzh1b01vZW9qcGxrQXNPeFdFL2MKLS0tIHBBVlROYlFvOHcrSXdmcjA2cUcy
+            ZnhrbWpMZUZXMjhGZHBRRVh4TkRkTzQKHbblLdKU82GRSkKt+Z0ITXyWArAbLalv
+            49b1L/uvtE5JtKf/eXImn69zz0m2BFmio6DYNYu5SybqjIwTAydEJA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2024-10-03T21:18:22Z"
+    mac: ENC[AES256_GCM,data:QdXueUl68fWTN2WjA7VgljC3m8C/6UiBWIwIZ02MrS3yCby+Wx3rRutlkGqyXYSKvMM/9BQ5NDiYh6tTbHLuXPpW4QDeeafrgQ4q2B/LJ8Np4hFSkwEXpBn+PTrQxJBahaoJcfIYwchdEZH4AogTlL8Wl/sJKn1LNUsC2yQlGfs=,iv:+QxckOReMFqQeNzgrkTWt0LX6nAjDtmVPATVyA+KKss=,tag:E8zhNivMVOdS7wlV9fGC0Q==,type:str]
+    pgp: []
+    encrypted_regex: ^(data|stringData)$
+    version: 3.9.0
