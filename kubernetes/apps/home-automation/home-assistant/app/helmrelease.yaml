@@ -39,9 +39,12 @@ spec:
               tag: 2024.9.3@sha256:e5eaa7f5ff09de9f9f43bcf072b86ddeba343963854f8f41d6c43d6a721f200e
             env:
               TZ: ${TIMEZONE}
+              HASS_HTTP_TRUSTED_PROXY_1: 172.20.24.0/24
+              HASS_HTTP_TRUSTED_PROXY_2: 10.69.0.0/16
+              HASS_HTTP_TRUSTED_PROXY_3: 10.96.0.0/16
             securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              allowPrivilegeEscalation: "false"
+              readOnlyRootFilesystem: "true"
               capabilities:
                 drop:
                   - ALL
