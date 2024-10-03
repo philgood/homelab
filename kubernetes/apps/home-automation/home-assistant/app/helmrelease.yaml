@@ -144,7 +144,7 @@ spec:
     persistence:
       config:
         enabled: true
-        existingClaim: *app
+        existingClaim: home-assistant-config
         advancedMounts:
           home-assistant:
             app:
