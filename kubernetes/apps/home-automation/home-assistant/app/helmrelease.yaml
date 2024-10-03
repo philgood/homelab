@@ -3,13 +3,13 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app home-assistant
+  name: home-assistant
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
-      version: 3.4.0
+      version: 3.3.2
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -22,81 +22,84 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  dependsOn:
-    - name: longhorn
-      namespace: storage
-    - name: volsync
-      namespace: storage
   values:
     controllers:
       home-assistant:
         annotations:
           reloader.stakater.com/auto: "true"
-        pod:
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            runAsNonRoot: true
-            fsGroup: 1000
-            fsGroupChangePolicy: OnRootMismatch
+        #initContainers:
+        #  init-db:
+        #    envFrom: &envFrom
+        #      - secretRef:
+        #          name: home-assistant-secret
+        #    image:
+        #      repository: ghcr.io/onedr0p/postgres-init
+        #      tag: 16.3
         containers:
-          main:
+          app:
             image:
-              repository: ghcr.io/home-assistant/home-assistant
-              tag: 2024.10.0@sha256:2c1b61c2321f2872ed5e2266b5e94a0b2bdbf70b695cb8ed783abc900154ba00
+              repository: ghcr.io/onedr0p/home-assistant
+              tag: 2024.10.0
             env:
-              TZ: "${TIMEZONE}"
+              TZ: ${TIMEZONE}
+              POSTGRES_HOST: postgres16-rw.database.svc.cluster.local
+              POSTGRES_DB: home_assistant
               HASS_HTTP_TRUSTED_PROXY_1: 172.20.24.0/24
               HASS_HTTP_TRUSTED_PROXY_2: 10.69.0.0/16
               HASS_HTTP_TRUSTED_PROXY_3: 10.96.0.0/16
             envFrom:
               - secretRef:
                   name: home-assistant-secret
-            probes:
-              liveness:
-                enabled: false
-              readiness:
-                enabled: false
-              startup:
-                enabled: false
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
             resources:
               requests:
                 cpu: 41m
                 memory: 552Mi
               limits:
                 memory: 1Gi
-          code-server:
+          codeserver:
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.93.1@sha256:c69e398d1b64589b3b77a7becfd03f4ec524982def20e6bffbb51b1b839e72ba
+              tag: 4.91.1@sha256:8403442d3472e411f72b6a5267b5ee0e62db27e258d81efebef40c3b41219970
             args:
               - --auth
-              - none
+              - "none"
               - --user-data-dir
               - "/config/.vscode"
               - --extensions-dir
               - "/config/.vscode"
-              - --port
-              - "8080"
-              - "/config"
-            env:
-              TZ: "${TIMEZONE}"
+              - "--port"
+              - "12321"
+              - /config
             resources:
               requests:
-                cpu: 50m
-                memory: 375Mi
+                cpu: 41m
+                memory: 593Mi
               limits:
-                cpu: 200m
-                memory: 950Mi
+                memory: 1Gi
 
+    defaultPodOptions:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000 #568
+        runAsGroup: 1000 #568
+        fsGroup: 1000 #568
+        fsGroupChangePolicy: OnRootMismatch
 
     service:
       app:
         controller: home-assistant
         type: LoadBalancer
-        nameOverride: home-assistant
         annotations:
-          lbipam.cilium.io/ips: 172.20.24.100
+          io.cilium/lb-ipam-ips: 172.20.24.100
+        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 8123
@@ -130,7 +133,9 @@ spec:
         ports:
           http:
             enabled: true
-            port: 8080
+            port: 12321
+            protocol: TCP
+            targetPort: 12321
     ingress:
       app:
         className: external
