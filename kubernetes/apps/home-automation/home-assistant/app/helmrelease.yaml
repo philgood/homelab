@@ -116,9 +116,9 @@ spec:
         ports:
           http:
             enabled: true
-            port: 12321
+            port: 8080
             protocol: TCP
-            targetPort: 12321
+            targetPort: 8080
     ingress:
       app:
         className: external
