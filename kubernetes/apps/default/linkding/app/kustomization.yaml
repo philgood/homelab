@@ -6,3 +6,4 @@ resources:
   - ./secret.sops.yaml
   - ../../../database/cloudnative-pg/cluster/secret.sops.yaml
   - ./helmrelease.yaml
+  - ./pvc.yaml
