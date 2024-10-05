@@ -1,16 +1,18 @@
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app external-secrets
+  name: &app cloudnative-pg
   namespace: flux-system
 spec:
-  targetNamespace: external-secrets
+  targetNamespace: database
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-  path: ./kubernetes/apps/external-secrets/external-secrets/app
+  dependsOn:
+    - name: openebs
+  path: ./kubernetes/apps/database/cloudnative-pg/app
   prune: true
   sourceRef:
     kind: GitRepository
@@ -20,20 +22,20 @@ spec:
   retryInterval: 1m
   timeout: 5m
 ---
-# yaml-language-server: $schema=https://kube-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: &app external-secrets-stores
+  name: &app cloudnative-pg-cluster
   namespace: flux-system
 spec:
-  targetNamespace: external-secrets
+  targetNamespace: database
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
   dependsOn:
-    - name: external-secrets
-  path: ./kubernetes/apps/external-secrets/external-secrets/stores
+    - name: cloudnative-pg
+  path: ./kubernetes/apps/database/cloudnative-pg/cluster
   prune: true
   sourceRef:
     kind: GitRepository
