@@ -95,7 +95,7 @@ spec:
                   port: http
     persistence:
       config:
-        storageClass: ceph-block
+        storageClass: longhorn
         accessMode: ReadWriteOnce
         size: 1Gi
         globalMounts:
