@@ -28,6 +28,17 @@ spec:
     keepHistory: false
   values:
     operatorConfig:
-      logging: "debug"
+      hostname: "tailscale-operator"
+      defaultTags:
+        - "tag:k8s"
     apiServerProxyConfig:
       mode: "true"
+  valuesFrom:
+    - kind: Secret
+      name: tailscale
+      valuesKey: client_id
+      targetPath: oauth.clientId
+    - kind: Secret
+      name: tailscale
+      valuesKey: client_secret
+      targetPath: oauth.clientSecret
