@@ -1,9 +1,10 @@
 apiVersion: tailscale.com/v1alpha1
 kind: Connector
 metadata:
-  name: tailscale-operator
+  name: subnet-router
 spec:
-  hostname: tailscale-operator
+  hostname: k8s-subnet-router
+  proxyClass: tailscale
   subnetRouter:
     advertiseRoutes:
       - "172.20.24.0/24"
