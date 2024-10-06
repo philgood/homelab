@@ -26,13 +26,4 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  values:
-    operatorConfig:
-      hostname: "tailscale-operator"
-      defaultTags:
-        - "tag:k8s"
-    apiServerProxyConfig:
-      mode: "true"
-  valuesFrom:
-    - kind: Secret
-      name: tailscale-operator
+
