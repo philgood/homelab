@@ -3,8 +3,7 @@ kind: Connector
 metadata:
   name: tailscale-operator
 spec:
-  hostname: tailscale-operator
-  proxyClass: tailscale
+  hostname: ts-pod-cidrs
   subnetRouter:
     advertiseRoutes:
       - "172.20.24.0/24"
