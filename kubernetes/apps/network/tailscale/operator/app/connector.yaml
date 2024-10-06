@@ -1,0 +1,10 @@
+apiVersion: tailscale.com/v1alpha1
+kind: Connector
+metadata:
+  name: tailscale-operator
+spec:
+  hostname: tailscale-operator
+  subnetRouter:
+    advertiseRoutes:
+      - "172.20.24.0/24"
+      - "172.20.22.0/24"
