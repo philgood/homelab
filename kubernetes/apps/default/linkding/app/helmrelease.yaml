@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.4.0
+      version: 3.5.0
       interval: 30m
       sourceRef:
         kind: HelmRepository
@@ -58,7 +58,7 @@ spec:
           app:
             image:
               repository: docker.io/sissbruecker/linkding
-              tag: 1.35.0-plus-alpine
+              tag: 1.36.0-plus-alpine
             env:
               LD_DB_ENGINE: postgres
               LD_DB_DATABASE: *dbName
