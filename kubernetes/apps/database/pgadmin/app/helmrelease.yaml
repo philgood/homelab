@@ -87,7 +87,7 @@ spec:
           gethomepage.dev/name: *app
           gethomepage.dev/icon: si-postgresql
         hosts:
-          - host: "pgadmin2.${SECRET_DOMAIN}"
+          - host: "pgadmin.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
