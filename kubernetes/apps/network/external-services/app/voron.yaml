@@ -43,6 +43,12 @@ metadata:
     # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: internal
+  tailscale:
+        enabled: true
+        className: tailscale
+        hosts:
+          - host: "{{ .Release.Name }}"
+            paths: *paths
   tls:
     - hosts:
         - voron.${SECRET_DOMAIN}
@@ -57,3 +63,4 @@ spec:
                 name: *app
                 port:
                   number: 80
+
