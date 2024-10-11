@@ -47,7 +47,7 @@ spec:
         enabled: true
         className: tailscale
         hosts:
-          - host: "{{ .Release.Name }}"
+          - host: "voron"
 
   tls:
     - hosts:
