@@ -82,7 +82,15 @@ spec:
         tls:
           - hosts:
               - *app
-
+      tailscale:
+        enabled: true
+        className: tailscale
+        hosts:
+          - host: "spoolman"
+            paths: *paths
+        tls:
+          - hosts:
+              - *app
     persistence:
       config:
         existingClaim: *app
