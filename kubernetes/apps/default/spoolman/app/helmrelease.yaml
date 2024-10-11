@@ -73,7 +73,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: spoolman.${SECRET_DOMAIN}
+          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -86,7 +86,7 @@ spec:
         enabled: true
         className: tailscale
         hosts:
-          - host: "spoolman"
+          - host: "{{ .Release.Name }}"
             paths: *paths
         tls:
           - hosts:
