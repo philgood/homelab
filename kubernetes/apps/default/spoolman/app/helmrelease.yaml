@@ -87,7 +87,6 @@ spec:
         className: tailscale
         hosts:
           - host: "{{ .Release.Name }}"
-            paths: *paths
         tls:
           - hosts:
               - *app
