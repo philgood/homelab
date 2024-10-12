@@ -43,12 +43,6 @@ metadata:
     # nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: internal
-  tailscale:
-        enabled: true
-        className: tailscale
-        hosts:
-          - host: "voron"
-
   tls:
     - hosts:
         - voron.${SECRET_DOMAIN}
