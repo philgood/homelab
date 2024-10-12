@@ -81,16 +81,15 @@ spec:
                 service:
                   identifier: app
                   port: http
-      tls:
-        - hosts:
-           - *app
-
       tailscale:
         enabled: true
         className: tailscale
         hosts:
           - host: "{{ .Release.Name }}"
             paths: *paths
+      tls:
+        - hosts:
+           - *app
 
     persistence:
       config:
