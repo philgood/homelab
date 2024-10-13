@@ -81,12 +81,12 @@ spec:
                 service:
                   identifier: app
                   port: http
-        tailscale:
-          enabled: true
-          className: tailscale
-          hosts:
-            - host: "{{ .Release.Name }}"
-              paths: *paths
+      tailscale:
+        enabled: true
+        className: tailscale
+        hosts:
+          - host: "{{ .Release.Name }}"
+            paths: *paths
         tls:
           - hosts:
              - *app
