@@ -75,8 +75,8 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
-            paths: &paths
+          - host: "spoolman.${SECRET_DOMAIN}"
+            paths:
               - path: /
                 service:
                   identifier: app
