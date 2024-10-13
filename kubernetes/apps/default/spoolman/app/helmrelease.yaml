@@ -70,12 +70,10 @@ spec:
 
     ingress:
       app:
-        annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
         enabled: true
         className: internal
         hosts:
-          - host: "spoolman.${SECRET_DOMAIN}"
+          - host: spoolman.${SECRET_DOMAIN}
             paths:
               - path: /
                 service:
