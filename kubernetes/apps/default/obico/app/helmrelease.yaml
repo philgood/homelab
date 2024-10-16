@@ -35,21 +35,19 @@ spec:
 
       ingress:
         app:
-          enabled: true
           className: external
           annotations:
-            external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+            external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hosts:
-            - host: obico.${SECRET_DOMAIN}
+            - host: &host obico.${SECRET_DOMAIN}
               paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-
           tls:
-            - hosts:
-                - *app
+           - hosts:
+              - *host
     ml-api:
       image:
         repository: ghcr.io/gabe565/obico/ml-api
