@@ -42,7 +42,10 @@ spec:
           hosts:
             - host: obico.${SECRET_DOMAIN}
               paths:
-                - path: /
+              - path: /
+                service:
+                  identifier: app
+                  port: http
 
           tls:
             - hosts:
