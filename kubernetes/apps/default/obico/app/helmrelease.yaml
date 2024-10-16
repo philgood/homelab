@@ -21,7 +21,7 @@ spec:
         repository: ghcr.io/gabe565/obico/web
         tag: sha-471c0364c7c823194bc9c5c2b13e76aa1ebad6b9
       env:
-        #ACCOUNT_ALLOW_SIGN_UP: "False"
+        ACCOUNT_ALLOW_SIGN_UP: "True"
         OCTOPRINT_TUNNEL_PORT_RANGE: "15853-15858"
         PUSHOVER_APP_TOKEN: "an6netr58vr8zucm3nmb9n8w7ce498"
 
