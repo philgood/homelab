@@ -40,7 +40,7 @@ spec:
           annotations:
             external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hosts:
-            - host: &host obico.${SECRET_DOMAIN}
+            - host: obico.${SECRET_DOMAIN}
               paths:
               - path: /
                 service:
@@ -48,7 +48,7 @@ spec:
                   port: http
           tls:
            - hosts:
-              - *host
+              - *app
     ml-api:
       image:
         repository: ghcr.io/gabe565/obico/ml-api
