@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app obico
+  name: obico
   namespace: flux-system
 spec:
   interval: 15m
@@ -34,21 +34,19 @@ spec:
           existingClaim: obico-media
 
       ingress:
-        app:
+        main:
           enabled: true
-          className: external
+          ingressClassName: "external"
           annotations:
             external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hosts:
-            - host: obico.${SECRET_DOMAIN}
+            - host: &host obico.${SECRET_DOMAIN}
               paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+                - path: /
+
           tls:
-           - hosts:
-              - *app
+            - hosts:
+                - *host
     ml-api:
       image:
         repository: ghcr.io/gabe565/obico/ml-api
