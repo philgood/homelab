@@ -38,7 +38,7 @@ spec:
           enabled: true
           className: external
           annotations:
-          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+            external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
           hosts:
             - host: obico.${SECRET_DOMAIN}
               paths:
