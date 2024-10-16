@@ -34,7 +34,7 @@ spec:
           existingClaim: obico-media
 
       ingress:
-        app:
+        main:
           className: external
           annotations:
             external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
