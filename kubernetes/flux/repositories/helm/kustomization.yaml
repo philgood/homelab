@@ -10,6 +10,7 @@ resources:
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./gabe565-charts.yaml
+  - ./grafana.yaml
   - ./ingress-nginx.yaml
   - ./k8s-gateway.yaml
   - ./jetstack.yaml
