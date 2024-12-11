@@ -115,7 +115,7 @@ spec:
     persistence:
       config:
         type: nfs
-        server: truenas.${SECRET_DOMAIN}
+        server: "${SECRET_TRUENAS_IP}"
         path: /mnt/DataPool/homelab/minio
         globalMounts:
           - path: /data
