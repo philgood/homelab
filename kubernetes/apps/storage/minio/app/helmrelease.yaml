@@ -114,7 +114,7 @@ spec:
                   port: s3
         tls:
          - hosts:
-           - *host
+           - *app
     persistence:
       config:
         type: nfs
