@@ -111,7 +111,7 @@ spec:
                   port: s3
         tls:
          - hosts:
-           - *app
+           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
     persistence:
       config:
         type: nfs
