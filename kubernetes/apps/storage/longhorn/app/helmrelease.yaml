@@ -31,7 +31,7 @@ spec:
     persistence:
       defaultClassReplicaCount: 1
     defaultSettings:
-      backupTarget: s3://longhorn@au-narden-s3
+      backupTarget: s3://longhorn@au-narden-s3/
       backupTargetCredentialSecret: longhorn-secret
       createDefaultDiskLabeledNodes: true
       defaultDataLocality: true
