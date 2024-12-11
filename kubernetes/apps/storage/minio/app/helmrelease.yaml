@@ -116,6 +116,6 @@ spec:
       config:
         type: nfs
         server: "${SECRET_TRUENAS_IP}"
-        path: /mnt/DataPool/homelab/minio
+        path: /mnt/DataPool/homelab
         globalMounts:
           - path: /data
