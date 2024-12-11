@@ -24,7 +24,7 @@ ports:
   - name: https
     appProtocol: https
     protocol: TCP
-    port: 443
+    port: 80
 endpoints:
   - addresses:
       - "172.20.24.243"
@@ -39,8 +39,8 @@ metadata:
     app.kubernetes.io/instance: *app
   annotations:
      external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
-     nginx.ingress.kubernetes.io/ssl-redirect: "true" # Redirects HTTP to HTTPS
-     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+     #nginx.ingress.kubernetes.io/ssl-redirect: "true" # Redirects HTTP to HTTPS
+     #nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
   ingressClassName: internal
   tls:
@@ -56,5 +56,5 @@ spec:
               service:
                 name: *app
                 port:
-                  number: 443
+                  number: 80
 
