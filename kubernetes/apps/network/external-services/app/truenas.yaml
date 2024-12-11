@@ -37,8 +37,8 @@ metadata:
   labels:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
-  annotations:
-     external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+  #annotations:
+     #external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
      #nginx.ingress.kubernetes.io/ssl-redirect: "true" # Redirects HTTP to HTTPS
      #nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 spec:
