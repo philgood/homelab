@@ -109,9 +109,6 @@ spec:
                 service:
                   identifier: app
                   port: s3
-        tls:
-         - hosts:
-           - "{{ .Release.Name }}.${SECRET_DOMAIN}"
     persistence:
       config:
         type: nfs
