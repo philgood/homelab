@@ -81,6 +81,7 @@ spec:
         controller: minio
         ports:
           http:
+            primary: true
             port: 9001
           s3:
             port: 9000
@@ -103,12 +104,15 @@ spec:
                 service:
                   identifier: app
                   port: http
-          - host: s3.${SECRET_DOMAIN}
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: s3
+      s3:
+        className: internal
+        hosts:
+        - host: s3.${SECRET_DOMAIN}
+          paths:
+            - path: /
+              service:
+                identifier: app
+                port: s3
     persistence:
       config:
         type: nfs
