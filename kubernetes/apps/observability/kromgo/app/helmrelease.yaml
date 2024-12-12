@@ -85,6 +85,9 @@ spec:
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+            - *app
     persistence:
       config-file:
         type: configMap
