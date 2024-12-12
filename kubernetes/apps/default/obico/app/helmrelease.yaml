@@ -1,0 +1,64 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: obico
+  namespace: flux-system
+spec:
+  interval: 15m
+  chart:
+    spec:
+      # renovate: registryUrl=https://bjw-s.github.io/helm-charts
+      chart: obico
+      version: 0.5.0
+      sourceRef:
+        kind: HelmRepository
+        name: gabe565-charts
+        namespace: flux-system
+  values:
+    server:
+      image:
+        repository: ghcr.io/gabe565/obico/web
+        tag: sha-50b9a9cf770c3dd444bf7488cb9b1ba5c96dc8fd
+      env:
+        ACCOUNT_ALLOW_SIGN_UP: "False"
+        OCTOPRINT_TUNNEL_PORT_RANGE: "15853-15858"
+      envFrom:
+          - secretRef:
+              name: obico-secret
+      persistence:
+        data:
+          enabled: true
+          existingClaim: obico-data
+        media:
+          enabled: true
+          existingClaim: obico-media
+
+      ingress:
+        app:
+          enabled: true
+          ingressClassName: "external"
+          annotations:
+            external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
+          hosts:
+            - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+              paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+          tls:
+            - hosts:
+                - *app
+
+    ml-api:
+      image:
+        repository: ghcr.io/gabe565/obico/ml-api
+        tag: sha-50b9a9cf770c3dd444bf7488cb9b1ba5c96dc8fd
+      env:
+        DEBUG: "False"
+
+    resources:
+      requests:
+        memory: 4096M

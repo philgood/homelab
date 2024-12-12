@@ -5,3 +5,4 @@ resources:
   - ./namespace.yaml
   - ./spoolman/ks.yaml
   - ./linkding/ks.yaml
+  - ./obico/ks.yaml
