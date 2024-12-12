@@ -45,10 +45,9 @@ spec:
               - path: /
                 service:
                   port: http
-
-          tls:
-            - hosts:
-                - *host
+        tls:
+          - hosts:
+              - *host
 
     ml-api:
       image:
