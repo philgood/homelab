@@ -36,6 +36,7 @@ spec:
 
       ingress:
         main:
+        enabled: true
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
@@ -43,8 +44,7 @@ spec:
           - host: &host obico.${SECRET_DOMAIN}
             paths:
               - path: /
-                service:
-                  port: http
+
         tls:
           - hosts:
               - *host
