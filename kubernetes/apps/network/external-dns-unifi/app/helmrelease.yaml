@@ -24,28 +24,22 @@ spec:
       retries: 3
   values:
     fullnameOverride: *app
-    # logLevel: debug
     provider:
       name: webhook
       webhook:
         image:
           repository: ghcr.io/kashalls/external-dns-unifi-webhook
-          tag: v0.4.0
+          tag: v0.4.1
         env:
           - name: UNIFI_HOST
             value: https://172.20.20.129
-          - name: UNIFI_USER
+          - name: UNIFI_EXTERNAL_CONTROLLER
+            value: "false"
+          - name: UNIFI_API_KEY
             valueFrom:
               secretKeyRef:
-                name: &secret external-dns-unifi-secret
-                key: EXTERNAL_DNS_UNIFI_USER
-          - name: UNIFI_PASS
-            valueFrom:
-              secretKeyRef:
-                name: *secret
-                key: EXTERNAL_DNS_UNIFI_PASS
-          # - name: LOG_LEVEL
-          #   value: "debug"
+                name: external-dns-unifi-secret
+                key: EXTERNAL_DNS_UNIFI_API
         livenessProbe:
           httpGet:
             path: /healthz
@@ -60,7 +54,6 @@ spec:
           timeoutSeconds: 5
     extraArgs:
       - --ignore-ingress-tls-spec
-      #- --ingress-class=internal
     policy: sync
     sources: ["ingress", "service"]
     txtOwnerId: main
