@@ -23,9 +23,6 @@ spec:
       env:
         ACCOUNT_ALLOW_SIGN_UP: "False"
         OCTOPRINT_TUNNEL_PORT_RANGE: "15853-15858"
-      envFrom:
-          - secretRef:
-              name: obico-secret
       persistence:
         data:
           enabled: true
