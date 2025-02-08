@@ -15,7 +15,7 @@ tasks:
     env:
       KUBECONFIG: "{{.KUBERNETES_DIR}}/kubeconfig"
     requires:
-      vars: ["cluster", "secret"]
+      vars: ["secret"]
     vars:
       ns: '{{.ns | default "default"}}'
     preconditions:
@@ -34,8 +34,6 @@ tasks:
           secret: '{{$a := split "|" .ITEM}}{{$a._1}}'
     env:
       KUBECONFIG: "{{.KUBERNETES_DIR}}/kubeconfig"
-    requires:
-      vars: ["cluster"]
     vars:
       secrets:
-        sh: kubectl  get externalsecret --all-namespaces --no-headers -A | awk '{print $1 "|" $2}'
+        sh: kubectl get externalsecret --all-namespaces --no-headers -A | awk '{print $1 "|" $2}'
