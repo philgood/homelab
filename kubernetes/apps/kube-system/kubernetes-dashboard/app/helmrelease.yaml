@@ -39,7 +39,7 @@ spec:
       - --disable-settings-authorizer
       - --enable-insecure-login
       - --insecure-bind-address=0.0.0.0
-    ingress:
+ingress:
       enabled: true
       className: internal
       annotations:
