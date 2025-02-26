@@ -89,7 +89,7 @@ tasks:
 
   apply-node:
     desc: Apply Talos config to a node [IP=required]
-    dir: '{{.TALOS_DIR}}'
+    dir: "{{.KUBERNETES_DIR}}/bootstrap/talos"
     cmd: talhelper gencommand apply --node {{.IP}} --extra-flags '--mode={{.MODE}}' | bash
     vars:
       MODE: '{{.MODE | default "auto"}}'
