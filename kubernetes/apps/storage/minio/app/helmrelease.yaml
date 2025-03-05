@@ -80,6 +80,9 @@ spec:
     service:
       app:
         controller: minio
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: s3.${SECRET_DOMAIN}
+          lbipam.cilium.io/ips: 172.20.24.99
         ports:
           http:
             port: 9001
@@ -97,8 +100,6 @@ spec:
     ingress:
       app:
         className: internal
-        annotations:
-          lbipam.cilium.io/ips: 172.20.24.98
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
