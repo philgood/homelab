@@ -33,6 +33,7 @@ spec:
               repository: quay.io/minio/minio
               tag: RELEASE.2025-02-28T09-55-16Z
             env:
+              MINIO_API_CORS_ALLOW_ORIGIN: https://minio.${SECRET_DOMAIN},https://s3.${SECRET_DOMAIN}
               MINIO_BROWSER_REDIRECT_URL: https://minio.${SECRET_DOMAIN}
               MINIO_SERVER_URL: https://s3.${SECRET_DOMAIN}
               MINIO_PROMETHEUS_JOB_ID: minio
@@ -95,7 +96,9 @@ spec:
             scrapeTimeout: 10s
     ingress:
       app:
-        className: internal
+        #className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "internal.${SECRET_DOMAIN}"
         hosts:
           - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
