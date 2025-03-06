@@ -45,11 +45,13 @@ spec:
         #      runAsGroup: 0
         #      runAsNonRoot: false
         #      runAsUser: 0
-        initContainers:
-          init-db:
+        containers:
+          app:
             image:
-              repository: ghcr.io/onedr0p/postgres-init
-              tag: 16
+              repository: ghcr.io/donkie/spoolman
+              tag: 0.21.0
+            #securityContext:
+            # runAsUser: 0
             env:
               SPOOLMAN_DB_TYPE: postgres
               SPOOLMAN_DB_HOST: &dbHost postgres16-rw.database.svc.cluster.local
@@ -69,21 +71,6 @@ spec:
                   secretKeyRef:
                     name: cloudnative-pg-secret
                     key: password
-        containers:
-          app:
-            image:
-              repository: ghcr.io/donkie/spoolman
-              tag: 0.21.0
-            #securityContext:
-            # runAsUser: 0
-            env:
-              SPOOLMAN_DB_TYPE: postgres
-              SPOOLMAN_DB_NAME: *dbName
-              SPOOLMAN_DB_HOST: *dbHost
-              SPOOLMAN_DB_PORT: 5432
-            envFrom:
-              - secretRef:
-                 name: *secret
             TZ: ${TIMEZONE}
             resources:
               requests:
