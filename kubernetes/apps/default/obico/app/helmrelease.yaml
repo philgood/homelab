@@ -23,6 +23,13 @@ spec:
       env:
         ACCOUNT_ALLOW_SIGN_UP: "False"
         OCTOPRINT_TUNNEL_PORT_RANGE: "15853-15858"
+      ports:
+      - "15853:3334"
+      - "15854:3334"
+      - "15855:3334"
+      - "15856:3334"
+      - "15857:3334"
+      - "15858:3334"
       persistence:
         data:
           enabled: true
