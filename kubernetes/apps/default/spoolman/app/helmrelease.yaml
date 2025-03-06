@@ -41,10 +41,10 @@ spec:
               repository: docker.io/library/busybox
               tag: latest
             command: [ "/bin/chown", "-R", "1000:1000", "/home/app/.local/share/spoolman/" ]
-            securityContext:
-              runAsGroup: 0
-              runAsNonRoot: false
-              runAsUser: 0
+            #securityContext:
+            #  runAsGroup: 0
+            #  runAsNonRoot: false
+            #  runAsUser: 0
         containers:
           app:
             image:
