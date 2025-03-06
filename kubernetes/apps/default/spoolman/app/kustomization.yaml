@@ -6,3 +6,4 @@ resources:
   - ./helmrelease.yaml
   #- ./pvc.yaml
   - ../../../database/cloudnative-pg/cluster/secret.sops.yaml
+  - ./externalsecret.yaml
