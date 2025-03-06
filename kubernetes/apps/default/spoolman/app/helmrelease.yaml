@@ -112,8 +112,8 @@ spec:
           - hosts:
              - *app
 
-    #persistence:
-    #  config:
-    #    existingClaim: *app
-    #    globalMounts:
-    #      - path: /home/app/.local/share/spoolman/
+    persistence:
+      config:
+        existingClaim: *app
+        globalMounts:
+          - path: /home/app/.local/share/spoolman/

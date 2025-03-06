@@ -4,6 +4,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ./helmrelease.yaml
-  #- ./pvc.yaml
+  - ./pvc.yaml
   - ../../../database/cloudnative-pg/cluster/secret.sops.yaml
   - ./externalsecret.yaml
