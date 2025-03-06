@@ -59,12 +59,12 @@ spec:
               SPOOLMAN_DB_USERNAME:
                 valueFrom:
                   secretKeyRef:
-                    name: &secret spoolman-secret
+                    name: spoolman-secret
                     key: LOGIN
               SPOOLMAN_DB_PASSWORD:
                 valueFrom:
                   secretKeyRef:
-                    name: *secret
+                    name: spoolman-secret
                     key: PASSWORD
               INIT_POSTGRES_SUPER_PASS:
                 valueFrom:
