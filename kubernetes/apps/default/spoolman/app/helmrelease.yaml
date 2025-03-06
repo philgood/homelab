@@ -54,7 +54,7 @@ spec:
             # runAsUser: 0
             env:
               SPOOLMAN_DB_TYPE: postgres
-              SPOOLMAN_DB_HOST: &dbHost postgres16-rw.database.svc.cluster.local:spoolman
+              SPOOLMAN_DB_HOST: &dbHost postgres16-rw.database.svc.cluster.local
               SPOOLMAN_DB_NAME: &dbName spoolman
               SPOOLMAN_DB_USERNAME:
                 valueFrom:
