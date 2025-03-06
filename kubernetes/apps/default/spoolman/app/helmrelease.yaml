@@ -77,10 +77,10 @@ spec:
             #securityContext:
             # runAsUser: 0
             env:
-              LD_DB_ENGINE: postgres
-              LD_DB_DATABASE: *dbName
-              LD_DB_HOST: *dbHost
-              LD_DB_PORT: 5432
+              SPOOLMAN_DB_TYPE: postgres
+              SPOOLMAN_DB_NAME: *dbName
+              SPOOLMAN_DB_HOST: *dbHost
+              SPOOLMAN_DB_PORT: 5432
             envFrom:
               - secretRef:
                  name: *secret
