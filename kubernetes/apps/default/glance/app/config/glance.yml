@@ -57,4 +57,4 @@ pages:
             title: Services
             sites:
               - title: Home Assistant
-                url: https://hass.${SECRET_DOMAIN}
+                url: https://hass.narden.au
