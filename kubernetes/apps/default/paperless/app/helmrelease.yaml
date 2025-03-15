@@ -1,0 +1,122 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app paperless
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      strategy: rollback
+      retries: 3
+  dependsOn:
+  - name: longhorn
+    namespace: storage
+  - name: volsync
+    namespace: storage
+  values:
+    controllers:
+      paperless:
+        labels:
+          nfsMount: "true"
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 2.14.7
+            env:
+              # Configure application
+              PAPERLESS_REDIS_PREFIX: pngx
+              PAPERLESS_URL: https://paperless.${SECRET_DOMAIN}
+              PAPERLESS_PORT: "8000"
+              PAPERLESS_TIME_ZONE: Australia/Sydney
+              PAPERLESS_WEBSERVER_WORKERS: "2"
+              PAPERLESS_TASK_WORKERS: "2"
+              # Configure Remote User auth
+              PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "true"
+              PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
+              PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
+              PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTH_REQUEST_EMAIL
+              # Configure folders
+              PAPERLESS_CONSUMPTION_DIR: /data/nas/consume
+              PAPERLESS_DATA_DIR: /data/local/data
+              PAPERLESS_EXPORT_DIR: /data/nas/export
+              PAPERLESS_MEDIA_ROOT: /data/local/media
+              # Configure folder importer
+              PAPERLESS_CONSUMER_POLLING: "60"
+              PAPERLESS_CONSUMER_RECURSIVE: "true"
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+              # Configure OCR
+              PAPERLESS_OCR_LANGUAGES: eng
+              PAPERLESS_OCR_LANGUAGE: eng
+              # Configure redis integration
+              PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379
+              # Configure user permissions
+              USERMAP_UID: 1000
+              USERMAP_GID: 1000
+            envFrom:
+            - secretRef:
+                name: paperless-secret
+            resources:
+              requests:
+                cpu: 15m
+              limits:
+                memory: 2048Mi
+            securityContext:
+              supplementalGroups: ["1000"]
+    defaultPodOptions:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 1000
+        fsGroup: 1000
+        supplementalGroups: [1000]
+        fsGroupChangePolicy: "OnRootMismatch"
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: 8000
+    ingress:
+      app:
+        className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+        hosts:
+        - host: "{{ .Release.Name }}.${SECRET_DOMAIN}"
+          paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    persistence:
+      data:
+        existingClaim: *app
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/local
+      nas:
+        type: nfs
+        server: 172.20.24.243
+        path: /mnt/DataPool/HomeShare/Documents/Paperless
+        advancedMounts:
+          paperless:
+            app:
+              - path: /data/nas
