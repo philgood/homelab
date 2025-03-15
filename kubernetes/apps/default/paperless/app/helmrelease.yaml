@@ -66,22 +66,11 @@ spec:
               # Configure redis integration
               PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379
               # Configure user permissions
-
-              PAPERLESS_ADMIN_USER:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secret
-                    key: PAPERLESS_ADMIN_USER
-              PAPERLESS_ADMIN_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secret
-                    key: PAPERLESS_ADMIN_PASSWORD
-              PAPERLESS_SECRET_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: paperless-secret
-                    key: PAPERLESS_SECRET_KEY
+              USERMAP_UID: "568"
+              USERMAP_GID: "568"
+            envFrom:
+              - secretRef:
+                  name: paperless
             resources:
               requests:
                 cpu: 15m
