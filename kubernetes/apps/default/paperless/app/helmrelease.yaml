@@ -120,7 +120,7 @@ spec:
       nas:
         type: nfs
         server: 172.20.24.243
-        path: /mnt/DataPool/apps/paperless
+        path: /mnt/DataPool/HomeShare/paperless
         advancedMounts:
           paperless:
             app:
