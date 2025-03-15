@@ -1,9 +1,9 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app dragonfly-operator
+  name: dragonfly-operator
 spec:
   interval: 30m
   chart:
@@ -26,11 +26,24 @@ spec:
     controllers:
       dragonfly-operator:
         strategy: RollingUpdate
+        pod:
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            seccompProfile: { type: RuntimeDefault }
+          topologySpreadConstraints:
+            - maxSkew: 1
+              topologyKey: kubernetes.io/hostname
+              whenUnsatisfiable: DoNotSchedule
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: dragonfly-operator
         containers:
           app:
             image:
               repository: ghcr.io/dragonflydb/operator
-              tag: v1.1.10
+              tag: v1.1.10@sha256:3668b8ab7017b81b8b9747424f34ee3c583008c597855e068534cadad366326f
             command: ["/manager"]
             args:
               - --health-probe-bind-address=:8081
@@ -67,22 +80,9 @@ spec:
               allowPrivilegeEscalation: false
               readOnlyRootFilesystem: true
               capabilities: { drop: ["ALL"] }
-    defaultPodOptions:
-      securityContext:
-        runAsNonRoot: true
-        runAsUser: 65534
-        runAsGroup: 65534
-        seccompProfile: { type: RuntimeDefault }
-      topologySpreadConstraints:
-        - maxSkew: 1
-          topologyKey: kubernetes.io/hostname
-          whenUnsatisfiable: DoNotSchedule
-          labelSelector:
-            matchLabels:
-              app.kubernetes.io/name: *app
     service:
       app:
-        controller: *app
+        controller: dragonfly-operator
         ports:
           http:
             port: *port
@@ -90,7 +90,7 @@ spec:
             port: 8080
     serviceMonitor:
       app:
-        serviceName: *app
+        serviceName: dragonfly-operator
         endpoints:
           - port: metrics
             scheme: http
@@ -99,4 +99,4 @@ spec:
             scrapeTimeout: 10s
     serviceAccount:
       create: true
-      name: *app
+      name: dragonfly-operator
