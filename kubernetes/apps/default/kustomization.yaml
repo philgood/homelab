@@ -7,3 +7,4 @@ resources:
   - ./linkding/ks.yaml
   - ./obico/ks.yaml
   - ./glance/ks.yaml
+  - ./paperless/ks.yaml
