@@ -66,8 +66,8 @@ spec:
               # Configure redis integration
               PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379
               # Configure user permissions
-              USERMAP_UID: "1000"
-              USERMAP_GID: "1000"
+              USERMAP_UID: "568"
+              USERMAP_GID: "568"
               PAPERLESS_ADMIN_USER:
                 valueFrom:
                   secretKeyRef:
@@ -120,7 +120,7 @@ spec:
       nas:
         type: nfs
         server: 172.20.24.243
-        path: /mnt/DataPool/media/paperless
+        path: /mnt/DataPool/apps/paperless
         advancedMounts:
           paperless:
             app:
