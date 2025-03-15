@@ -68,9 +68,21 @@ spec:
               # Configure user permissions
               USERMAP_UID: 1000
               USERMAP_GID: 1000
-            envFrom:
-              - secretRef:
-                  name: paperless-secret
+              PAPERLESS_ADMIN_USER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_ADMIN_USER
+              PAPERLESS_ADMIN_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_ADMIN_PASSWORD
+              PAPERLESS_SECRET_KEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: PAPERLESS_SECRET_KEY
             resources:
               requests:
                 cpu: 15m
