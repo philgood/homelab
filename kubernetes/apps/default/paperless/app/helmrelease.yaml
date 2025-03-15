@@ -105,6 +105,9 @@ spec:
             service:
               identifier: app
               port: http
+        tls:
+          - hosts:
+             - *app
     persistence:
       data:
         existingClaim: *app
