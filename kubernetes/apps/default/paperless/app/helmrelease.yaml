@@ -65,6 +65,11 @@ spec:
               PAPERLESS_OCR_LANGUAGE: eng
               # Configure redis integration
               PAPERLESS_REDIS: redis://dragonfly.database.svc.cluster.local:6379
+              # Postgres database
+              PAPERLESS_DBNAME: paperless
+              PAPERLESS_DBTYPE: postgres
+              PAPERLESS_DBHOST: postgres16-rw.database.svc.cluster.local
+              SPOOLMAN_DB_PORT: 5432
               # Configure user permissions
               USERMAP_UID: "568"
               USERMAP_GID: "568"
@@ -83,6 +88,16 @@ spec:
                   secretKeyRef:
                     name: paperless-secret
                     key: PAPERLESS_SECRET_KEY
+              PAPERLESS_DBUSER:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: POSTGRES_USER
+              PAPERLESS_DBPASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: paperless-secret
+                    key: POSTGRES_PASS
             resources:
               requests:
                 cpu: 15m
