@@ -92,12 +92,12 @@ spec:
                 valueFrom:
                   secretKeyRef:
                     name: paperless-secret
-                    key: POSTGRES_USER
+                    key: PAPERLESS_DBUSER
               PAPERLESS_DBPASS:
                 valueFrom:
                   secretKeyRef:
                     name: paperless-secret
-                    key: POSTGRES_PASS
+                    key: PAPERLESS_DBPASS
             resources:
               requests:
                 cpu: 15m
