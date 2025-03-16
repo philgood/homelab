@@ -121,7 +121,5 @@ spec:
         type: nfs
         server: 172.20.24.243
         path: /mnt/DataPool/apps/paperless
-        advancedMounts:
-          paperless:
-            app:
-              - path: /data/nas
+        globalMounts:
+          - path: /data/nas
