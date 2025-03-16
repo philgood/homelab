@@ -69,7 +69,7 @@ spec:
               PAPERLESS_DBNAME: paperless
               PAPERLESS_DBTYPE: postgres
               PAPERLESS_DBHOST: postgres16-rw.database.svc.cluster.local
-              SPOOLMAN_DB_PORT: 5432
+              PAPERLESS_DBPORT: 5432
               # Configure user permissions
               USERMAP_UID: "568"
               USERMAP_GID: "568"
