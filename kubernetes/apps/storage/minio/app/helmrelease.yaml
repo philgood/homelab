@@ -24,11 +24,11 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      minio:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
-          main:
+          app:
             image:
               repository: quay.io/minio/minio
               tag: RELEASE.2025-03-12T18-04-18Z@sha256:46b3009bf7041eefbd90bd0d2b38c6ddc24d20a35d609551a1802c558c1c958f
@@ -78,8 +78,8 @@ spec:
               supplementalGroups: [100]
 
     service:
-      main:
-        controller: main
+      minio:
+        controller: minio
         ports:
           http:
             port: &port-console 9001
@@ -87,7 +87,7 @@ spec:
             port: &port-api 9000
 
     ingress:
-      main:
+      mino:
         className: internal
         annotations:
           hajimari.io/enable: "true"
