@@ -121,6 +121,9 @@ spec:
                 service:
                   identifier: minio
                   port: *port-api
+        tls:
+          - hosts:
+               - *host-console
 
     persistence:
       config:
