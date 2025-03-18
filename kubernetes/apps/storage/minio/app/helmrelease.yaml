@@ -104,6 +104,10 @@ spec:
                   identifier: minio
                   port: *port-console
 
+        tls:
+          - hosts:
+               - *host-console
+
       s3:
         className: internal
         annotations:
@@ -121,9 +125,7 @@ spec:
                 service:
                   identifier: minio
                   port: *port-api
-        tls:
-          - hosts:
-               - *host-console
+
 
     persistence:
       config:
