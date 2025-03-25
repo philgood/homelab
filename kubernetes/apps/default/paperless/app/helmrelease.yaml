@@ -46,6 +46,9 @@ spec:
               PAPERLESS_TIME_ZONE: Australia/Sydney
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: "2"
+              PAPERLESS_TIKA_ENABLED: 1
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               # Configure Remote User auth
               PAPERLESS_ACCOUNT_ALLOW_SIGNUPS: "false"
               PAPERLESS_SOCIALACCOUNT_ALLOW_SIGNUPS: "false"
@@ -103,6 +106,22 @@ spec:
                 cpu: 15m
               limits:
                 memory: 2048Mi
+          gotenberg:
+            image:
+              repository: docker.io/thecodingmachine/gotenberg
+              tag: 8.18.0
+            env:
+              - {name: DISABLE_GOOGLE_CHROME, value: "1"}
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
+          tika:
+            image:
+              repository: ghcr.io/paperless-ngx/tika
+              tag: 2.9.1-full
+            securityContext:
+              runAsUser: 65534
+              runAsGroup: 65534
 
     service:
       app:
