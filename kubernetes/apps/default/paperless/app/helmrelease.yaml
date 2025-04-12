@@ -131,9 +131,9 @@ spec:
             port: 8000
     ingress:
       app:
-        className: internal
+        className: extrenal
         annotations:
-          external-dns.alpha.kubernetes.io/target: internal.${SECRET_DOMAIN}
+          external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
         hosts:
         - host: paperless.${SECRET_DOMAIN}
           paths:
