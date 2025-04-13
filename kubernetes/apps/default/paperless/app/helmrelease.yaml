@@ -131,7 +131,7 @@ spec:
             port: 8000
     ingress:
       app:
-        className: extrenal
+        className: internal
         hosts:
         - host: paperless.${SECRET_DOMAIN}
           paths:
