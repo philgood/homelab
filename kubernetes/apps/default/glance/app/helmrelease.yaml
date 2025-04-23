@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: glanceapp/glance
-              tag: v0.7.10@sha256:65b20e4405611abca17a70f6c3c7b8fdb3ce6ff0179a32c35dd84d77db624db7
+              tag: v0.7.13@sha256:a2371cabe498c5df8ff1e935eee7a383a1a6c9e17def2a18db82810019e5e4ab
             env:
               TZ: Australia/Sydney
             securityContext:
