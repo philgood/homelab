@@ -156,6 +156,12 @@ spec:
               - path: /config
             codeserver:
               - path: /config
+      backups:
+        type: nfs
+        server: 172.20.24.243
+        path: /mnt/DataPool/apps/homeassistant
+        globalMounts:
+          - path: /config/backups
       logs:
         type: emptyDir
         globalMounts:
