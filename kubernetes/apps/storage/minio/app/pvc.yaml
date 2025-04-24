@@ -5,13 +5,13 @@ metadata:
   name: minio-nfs
 spec:
   capacity:
-    storage: 1Ti
+    storage: 100Gi
   accessModes:
     - ReadWriteMany
   storageClassName: minio-nfs
   persistentVolumeReclaimPolicy: Retain
   nfs:
-    server: "${SECRET_TRUENAS_IP}"
+    server: 172.20.24.243
     path: /mnt/DataPool/apps/minio
   mountOptions:
     - nfsvers=4.2
@@ -31,4 +31,4 @@ spec:
   storageClassName: minio-nfs
   resources:
     requests:
-      storage: 1Ti
+      storage: 100Gi
