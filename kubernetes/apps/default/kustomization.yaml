@@ -8,4 +8,4 @@ resources:
   - ./obico/ks.yaml
   - ./glance/ks.yaml
   - ./paperless/ks.yaml
-  - ./memos/ks.yaml
+  #- ./memos/ks.yaml
