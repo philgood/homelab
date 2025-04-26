@@ -32,15 +32,15 @@ spec:
       memos:
         annotations:
           reloader.stakater.com/auto: "true"
-        initContainers:
-          init-db:
-            image:
-              repository: ghcr.io/home-operations/postgres-init
-              tag: 16.4.0@sha256:a9f405688344a8a6f718e2c344438342ad21540986aeb5ab5fa781831eb2c597
-              pullPolicy: Always
-            envFrom:
-              - secretRef:
-                  name: memos-secret
+        #initContainers:
+        #  init-db:
+        #    image:
+        #      repository: ghcr.io/home-operations/postgres-init
+        #      tag: 16.4.0@sha256:a9f405688344a8a6f718e2c344438342ad21540986aeb5ab5fa781831eb2c597
+        #      pullPolicy: Always
+        #    envFrom:
+        #      - secretRef:
+        #          name: memos-secret
         containers:
           app:
             image:
@@ -55,6 +55,9 @@ spec:
                   secretKeyRef:
                     name: memos-secret
                     key: POSTGRES_URL
+            envFrom:
+                - secretRef:
+                    name: memos-secret
             probes:
               liveness:
                 enabled: true
