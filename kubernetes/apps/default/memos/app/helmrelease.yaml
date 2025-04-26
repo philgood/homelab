@@ -70,7 +70,7 @@ spec:
               INIT_POSTGRES_SUPER_PASS:
                 valueFrom:
                   secretKeyRef:
-                    name: memos-secret
+                    name: cloudnative-pg
                     key: POSTGRES_SUPER_PASS
             probes:
               liveness:
