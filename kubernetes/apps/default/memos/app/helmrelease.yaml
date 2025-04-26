@@ -55,9 +55,23 @@ spec:
                   secretKeyRef:
                     name: memos-secret
                     key: POSTGRES_URL
-            envFrom:
-                - secretRef:
+              INIT_POSTGRES_DBNAME: memos
+              INIT_POSTGRES_HOST: postgres16-rw.database.svc.cluster.local.
+              INIT_POSTGRES_USER:
+                valueFrom:
+                  secretKeyRef:
                     name: memos-secret
+                    key: MEMOS_POSTGRES_USER
+              INIT_POSTGRES_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: memos-secret
+                    key: MEMOS_POSTGRES_PASS
+              INIT_POSTGRES_SUPER_PASS:
+                valueFrom:
+                  secretKeyRef:
+                    name: memos-secret
+                    key: POSTGRES_SUPER_PASS
             probes:
               liveness:
                 enabled: true
