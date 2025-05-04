@@ -24,7 +24,7 @@ spec:
       retries: 3
   values:
     controllers:
-      glance:
+      hassactron:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
