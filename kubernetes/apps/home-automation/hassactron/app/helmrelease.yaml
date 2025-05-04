@@ -69,7 +69,7 @@ spec:
         type: configMap
         name: hassactron-configmap
         advancedMounts:
-          glance:
+          hassactron:
             app:
               - path: /app/config/options.yml
                 subPath: options.yml
