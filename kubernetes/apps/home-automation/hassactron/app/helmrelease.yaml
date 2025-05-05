@@ -43,6 +43,8 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
+            ports:
+              - containerPort: 80
 
         pod:
           securityContext:
