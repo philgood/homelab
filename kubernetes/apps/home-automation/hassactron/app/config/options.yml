@@ -1,9 +1,0 @@
-MQTTUser: user
-MQTTPassword: password
-MQTTBroker: broker
-Zones:
-  - Name: Bedrooms
-    Id: 1
-  - Name: living
-    Id: 2
-RegisterZoneTemperatures: false

@@ -58,19 +58,14 @@ spec:
             port: 80
 
     persistence:
-      config:
-        existingClaim: hassactron-config
-      hassactron-cache:
-        type: emptyDir
+      data:
+        enabled: true
+        existingClaim: hassactron-data
         globalMounts:
           - path: /data
-
-      config-file:
-        type: configMap
-        name: hassactron-configmap
-        advancedMounts:
-          hassactron:
-            app:
-              - path: /app/config/options.yml
-                subPath: options.yml
-                readOnly: true
+      options-secret:
+        type: secret
+        name: hassactron-secret
+        globalMounts:
+          - path: /data/options.json
+            subPath: options.json
