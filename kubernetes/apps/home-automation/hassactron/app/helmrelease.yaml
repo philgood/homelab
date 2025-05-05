@@ -52,7 +52,7 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: hassactron
+        controller: app
         ports:
           http:
             port: 80
