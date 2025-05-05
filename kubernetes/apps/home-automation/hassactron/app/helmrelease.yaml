@@ -56,11 +56,11 @@ spec:
         controller: *app
         type: LoadBalancer
         annotations:
-          external-dns.alpha.kubernetes.io/hostname: actron.${SECRET_DOMAIN}
           lbipam.cilium.io/ips: 172.20.24.80
         ports:
           http:
             port: 80
+            targetPort: 80
 
     persistence:
       data:
