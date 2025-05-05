@@ -43,6 +43,11 @@ spec:
                 cpu: 10m
               limits:
                 memory: 1Gi
+            probes:
+              liveness:
+                enabled: true
+              readiness:
+                enabled: true
         pod:
           securityContext:
             runAsUser: 568
