@@ -12,7 +12,6 @@
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
   "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "rebaseWhen": "conflicted",
-  "schedule": ["every weekend"],
   "ignorePaths": ["**/*.sops.*"],
   "flux": {
     "fileMatch": ["(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$"]
@@ -32,6 +31,9 @@
   "pip_requirements": {
     "fileMatch": ["(^|/)[\\w-]*requirements(-\\w+)?\\.(txt|pip)(?:\\.j2)?$"]
   },
+  "automergeSchedule": [
+    "* 0-3 * * *"
+  ],
   // commit message topics
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
