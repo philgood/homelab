@@ -31,8 +31,8 @@ spec:
     persistence:
       defaultClassReplicaCount: 1
     defaultSettings:
-      backupTarget: s3://longhorn@narden-au/
-      backupTargetCredentialSecret: longhorn-secret
+      backupstorePollInterval: 300
+      backupTarget: nfs://172.20.24.243:/mnt/DataPool/apps/longhorn
       createDefaultDiskLabeledNodes: true
       defaultDataLocality: true
       replicaAutoBalance: true
