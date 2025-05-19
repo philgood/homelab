@@ -69,8 +69,8 @@ spec:
       minio:
         controller: minio
         ports:
-          http:
-            port: *port-console
+          #http:
+            #port: port-console
           api:
             port: *port-api
 
@@ -84,7 +84,7 @@ spec:
                 pathType: Prefix
                 service:
                   identifier: minio
-                  port: &port-console 9001
+                  #port: &port-console 9001
 
         tls:
           - hosts:
