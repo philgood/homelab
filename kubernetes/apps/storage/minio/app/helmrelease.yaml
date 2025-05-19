@@ -68,7 +68,7 @@ spec:
     service:
       minio:
         controller: minio
-        ports:
+        #ports:
           #http:
             #port: port-console
           #api:
@@ -86,9 +86,9 @@ spec:
                   identifier: minio
                   #port: &port-console 9001
 
-        tls:
-          - hosts:
-               - *host-console
+        #tls:
+         # - hosts:
+          #     - *host-console
 
       s3:
         className: internal
