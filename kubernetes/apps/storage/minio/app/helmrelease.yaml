@@ -71,8 +71,8 @@ spec:
         ports:
           #http:
             #port: port-console
-          api:
-            port: *port-api
+          #api:
+          #  port: *port-api
 
     ingress:
       minio:
@@ -99,7 +99,7 @@ spec:
                 pathType: Prefix
                 service:
                   identifier: minio
-                  port: &port-api 9000
+                  #port: &port-api 9000
 
 
     persistence:
